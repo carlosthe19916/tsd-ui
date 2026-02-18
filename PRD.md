@@ -1,8 +1,11 @@
 # Product Requirements Document: TSD Shared UI Component Library
 
 **Version:** 1.0
+
 **Date:** February 4, 2026
+
 **Author:** TSD Team
+
 **Status:** Draft
 
 ---
