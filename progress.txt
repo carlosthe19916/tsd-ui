@@ -48,3 +48,15 @@ Completed:
 - Branch protection enforcement is a repo settings step (not automatable via workflow file)
 
 Next task: F008 — Dependabot Configuration
+
+## F008 — Dependabot Configuration [PASSES]
+Date: 2026-03-04
+
+Completed:
+- Created .github/dependabot.yml
+- Configured weekly npm dependency updates with dev-dependency grouping (minor+patch)
+- Configured weekly GitHub Actions updates
+- Security updates enabled by default (Dependabot alerts)
+- CI will run on Dependabot PRs via the existing ci.yml workflow
+
+Next task: F009 — CodeQL Security Scanning
