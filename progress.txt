@@ -60,3 +60,15 @@ Completed:
 - CI will run on Dependabot PRs via the existing ci.yml workflow
 
 Next task: F009 — CodeQL Security Scanning
+
+## F009 — CodeQL Security Scanning [PASSES]
+Date: 2026-03-04
+
+Completed:
+- Created .github/workflows/codeql.yml
+- Runs on push to main, PRs targeting main, and weekly schedule (Monday 6am UTC)
+- Analyzes javascript-typescript via CodeQL autobuild
+- Uploads SARIF results to Security tab (requires security-events: write permission)
+- High severity alert blocking is configured via GitHub repo settings (Settings > Code security > Code scanning)
+
+Next task: F001 — Architectural Boundary Definition

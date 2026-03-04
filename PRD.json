@@ -146,7 +146,7 @@
       "phase": 0,
       "name": "CodeQL Security Scanning",
       "description": "Enable CodeQL static analysis for TypeScript",
-      "status": "planned",
+      "status": "passes",
       "dependencies": ["F000"],
       "verificationSteps": [
         "1. Add CodeQL workflow",
