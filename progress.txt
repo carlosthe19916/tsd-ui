@@ -24,3 +24,14 @@ Completed:
 - Verified: typecheck runs and blocks on type errors
 
 Next task: F006 — Pre-push Hooks (Build + Unit Tests)
+
+## F006 — Pre-push Hooks (Build + Unit Tests) [PASSES]
+Date: 2026-03-04
+
+Completed:
+- Created .husky/pre-push hook running `npm run build` then `npm test`
+- Verified: build failure would block push (exit code 1)
+- Verified: failing test blocks push (simulated with expect(true).toBe(false))
+- Fixed invalid JSON comments in PRD.json
+
+Next task: F007 — GitHub Actions CI Pipeline

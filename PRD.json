@@ -65,7 +65,7 @@
       "phase": 0,
       "name": "Pre-push Hooks (Build + Unit Tests)",
       "description": "Prevent broken builds or failing tests from being pushed",
-      "status": "planned",
+      "status": "passes",
       "dependencies": ["F005"],
       "verificationSteps": [
         "1. Add husky pre-push hook",
@@ -259,10 +259,6 @@
       "blockers": [],
       "notes": "Core must remain UI-agnostic."
     },
-
-    // =========================================================
-    // PHASE 4 — TABLE CONTROLS
-    // =========================================================
 
     {
       "id": "F030",
