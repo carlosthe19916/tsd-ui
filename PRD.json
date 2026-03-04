@@ -89,7 +89,7 @@
       "phase": 0,
       "name": "GitHub Actions CI Pipeline",
       "description": "Implement CI workflow for lint, typecheck, build, and test validation",
-      "status": "planned",
+      "status": "passes",
       "dependencies": ["F000"],
       "verificationSteps": [
         "1. Create .github/workflows/ci.yml",
