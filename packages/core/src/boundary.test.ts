@@ -15,16 +15,15 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CORE_SRC = path.resolve(__dirname);
 
-const FORBIDDEN_IMPORTS = [
-  // UI frameworks — core must remain headless
-  "@patternfly",
-  "react-dom",
-  // App-specific modules
-  "@app/",
-  "@tackle-ui",
-  // Wrapper packages must not be imported by core
-  "@tsd-ui/forms",
-  "@tsd-ui/table-controls",
+const ALLOWED_IMPORTS = [
+  // node built-in modules
+  "node:",
+  // testing utilities
+  "vitest",
+  // self-reference allowed
+  "@tsd-ui/core",
+  // standard libs & utils
+  "react", // React itself is allowed (for types), but not react-dom
 ];
 
 function collectTsFiles(dir: string): string[] {
@@ -50,15 +49,26 @@ describe("architectural boundaries", () => {
   for (const file of sourceFiles) {
     const relPath = path.relative(CORE_SRC, file);
 
-    it(`${relPath} does not import forbidden modules`, () => {
+    it(`${relPath} only imports from allowed modules`, () => {
       const content = fs.readFileSync(file, "utf-8");
-      for (const forbidden of FORBIDDEN_IMPORTS) {
-        const hasImport =
-          content.includes(`from "${forbidden}`) ||
-          content.includes(`from '${forbidden}`) ||
-          content.includes(`require("${forbidden}`) ||
-          content.includes(`require('${forbidden}`);
-        expect(hasImport, `Found forbidden import "${forbidden}" in ${relPath}`).toBe(false);
+
+      // extract all import statements
+      const importRegex = /(?:from|require\()\s*["']([^"']+)["']/g;
+      const imports = [...content.matchAll(importRegex)]
+        .map((match) => match[1])
+        .filter((imp): imp is string => imp !== undefined);
+
+      for (const importPath of imports) {
+        // check if import is relative (starts with . or ..)
+        if (importPath.startsWith(".")) {
+          continue; // relative imports are always allowed
+        }
+
+        const isAllowed = ALLOWED_IMPORTS.some((allowed) => importPath.startsWith(allowed));
+        expect(
+          isAllowed,
+          `Found disallowed import "${importPath}" in ${relPath}. Only imports starting with [${ALLOWED_IMPORTS.join(", ")}] are allowed.`,
+        ).toBe(true);
       }
     });
   }

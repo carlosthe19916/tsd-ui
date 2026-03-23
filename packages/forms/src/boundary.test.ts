@@ -11,7 +11,20 @@ import * as path from "node:path";
 
 const FORMS_SRC = path.resolve(__dirname);
 
-const FORBIDDEN_IMPORTS = ["@app/", "@tackle-ui", "@tsd-ui/table-controls"];
+const ALLOWED_IMPORTS = [
+  // Node built-in modules
+  "node:",
+  // Testing utilities
+  "vitest",
+  // Core package
+  "@tsd-ui/core",
+  // UI framework (PatternFly and React)
+  "@patternfly",
+  "react",
+  "react-dom",
+  // Self-reference
+  "@tsd-ui/forms",
+];
 
 function collectTsFiles(dir: string): string[] {
   const files: string[] = [];
@@ -36,12 +49,27 @@ describe("forms layer boundaries", () => {
   for (const file of sourceFiles) {
     const relPath = path.relative(FORMS_SRC, file);
 
-    it(`${relPath} does not import app-specific modules`, () => {
+    it(`${relPath} only imports from allowed modules`, () => {
       const content = fs.readFileSync(file, "utf-8");
-      for (const forbidden of FORBIDDEN_IMPORTS) {
-        const hasImport =
-          content.includes(`from "${forbidden}`) || content.includes(`from '${forbidden}`);
-        expect(hasImport, `Found forbidden import "${forbidden}" in ${relPath}`).toBe(false);
+
+      // Extract all import statements
+      const importRegex = /(?:from|require\()\s*["']([^"']+)["']/g;
+      const imports = [...content.matchAll(importRegex)]
+        .map((match) => match[1])
+        .filter((imp): imp is string => imp !== undefined);
+
+      for (const importPath of imports) {
+        // Check if import is relative (starts with . or ..)
+        if (importPath.startsWith(".")) {
+          continue; // Relative imports are always allowed
+        }
+
+        // Check if import matches any allowed prefix
+        const isAllowed = ALLOWED_IMPORTS.some((allowed) => importPath.startsWith(allowed));
+        expect(
+          isAllowed,
+          `Found disallowed import "${importPath}" in ${relPath}. Only imports starting with [${ALLOWED_IMPORTS.join(", ")}] are allowed.`,
+        ).toBe(true);
       }
     });
   }
