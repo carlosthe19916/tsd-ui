@@ -1,10 +1,10 @@
 #!/bin/bash
 
-claude --permission-mode acceptEdits "@PRD.json @progress.txt \
-1. Read PRD.json and progress.txt. \
-2. Find the next incomplete task (status: 'pending' with satisfied dependencies). \
+claude --permission-mode acceptEdits "@PRD.md @agent-progress.md \
+1. Read PRD.md and agent-progress.md. \
+2. Find the next incomplete task (status: planned/in-progress in the roadmap). \
 3. Implement it completely with tests. \
-4. Update the feature status to 'passes' in PRD.json. \
+4. Update the feature status in PRD.md (check the acceptance criteria box). \
 5. Commit your changes (pre-commit hooks will enforce quality automatically). \
-6. Append to progress.txt with what you did, and the next task (if applicable). \
+6. Update agent-progress.md with what you did, and the next task (if applicable). \
 7. EXIT IMMEDIATELY - do not process any additional tasks."
