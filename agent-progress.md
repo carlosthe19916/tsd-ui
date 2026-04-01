@@ -3,7 +3,7 @@
 ## Current focus
 
 **F015 — Theme Adoption Validation in TAS Console**
-Wire the existing `@tsd-ui/core` theme system into TAS Console and validate that dark mode works cleanly across representative screens. See `PRD.md` for full acceptance criteria.
+Wire the existing `@tsd-ui/core` theme system into TAS Console and validate that dark mode works cleanly across representative screens. See `PRD.json` (feature F015) for full acceptance criteria.
 
 ## Completed
 
@@ -55,7 +55,7 @@ Defined three-layer architecture (Core → Wrappers → App Adapters). Created t
 
 _Status: Planned / ready to start_
 
-The theme infrastructure exists in `packages/core/src/components/Theme/` and is exported from `@tsd-ui/core`. Next step is wiring it into TAS Console and validating the integration. See `PRD.md` for detailed verification steps and acceptance criteria.
+The theme infrastructure exists in `packages/core/src/components/Theme/` and is exported from `@tsd-ui/core`. Next step is wiring it into TAS Console and validating the integration. See `PRD.json` (feature F015) for detailed verification steps and acceptance criteria.
 
 ## Next up
 
@@ -73,7 +73,7 @@ The theme infrastructure exists in `packages/core/src/components/Theme/` and is 
 - **Flatter architecture:** The three-layer model remains a guiding principle, but pragmatic grouping within `packages/core` is preferred over premature package splitting.
 - **Internal adoption first:** Prove reuse in our own apps before investing in PatternFly-compatible packaging or upstream contribution.
 - **AI skills/plugins separate:** Productivity tooling and AI agent configuration are a separate initiative and are out of scope for this PRD.
-- **Markdown planning:** Migrated from `PRD.json` + `progress.txt` to `PRD.md` + `agent-progress.md` for readability and maintainability.
+- **Progress in Markdown:** `progress.txt` was replaced by `agent-progress.md` for easier scanning; the PRD stays machine-readable JSON in `PRD.json`.
 
 ## Blockers / risks
 
@@ -83,9 +83,13 @@ The theme infrastructure exists in `packages/core/src/components/Theme/` and is 
 
 ## Change log
 
+### 2026-04-01 — PRD stays JSON
+
+- Restored `PRD.json` as the canonical PRD; removed `PRD.md` (only progress was meant to move to Markdown).
+- Updated `ralph-once.sh` and this file to reference `PRD.json` again.
+
 ### 2026-04-01 — Planning migration and roadmap re-baseline
 
-- Migrated planning from `PRD.json` to `PRD.md`
 - Migrated progress tracking from `progress.txt` to `agent-progress.md`
 - Re-baselined roadmap: theme adoption validation (F015) is now the next milestone, replacing the previously planned HookFormPF extraction (F010)
 - Added F015 (Theme Adoption Validation) and F016 (Theme Hardening) to the roadmap
